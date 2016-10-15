@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Socket.io - Events</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+</head>
+<body>
+  <h1>socket.io - Events</h1>
+  <h2>LISTA DE USUARIOS</h2>
+  <div id="listusers"></div>
+  <input type="text" id="nameuser">
+  <button id="enterchat">ENTRAr</button>
+  <p id="console"></p>
+  
+  <input type="text" id="message"> 
+  <button id="sendmsg">ENVIAR</button>
+
+  <p id="mensagens">
+    
+  </p>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(document).ready(function() {
+
+      const socket = io.connect('http://localhost:8080');
+      const html = document.getElementById('console')
+      const message = document.getElementById('message')
+      const send = document.getElementById('sendmsg')
+      const mensagens = document.getElementById('mensagens')
+
+      $('#enterchat').click(function() {
+        const nick = $('#nameuser').val()
+        socket.emit('adduser', nick)
+        $('#mensagens').append("Você acabou de entrar no Chat da UOL<br />")
+      })
+      send.addEventListener('click', function() {
+
+        let msg = message.value
+        console.log('msg:', msg) 
+        sendMSG(msg);
+        $('#mensagens').append(msg + "<br />")
+      })
+
+      function addMSG (msg) {
+        $('#mensagens').append(msg + "<br />")
+      }
+
+      function sendMSG (msg) {
+        socket.emit('message', msg);
+      }
+
+      function updateUsersList(usersList){
+        $("#listusers").html("");
+        usersList.forEach(function(user){
+          $("#listusers").append(user + "<br>");
+        })
+      }
+
+      socket.on('connect', function(){
+        console.log('connectou')
+        // const nick = prompt('Qual seu nick?')
+
+
+        html.innerHTML += 'connectou \r\n'
+        socket.emit('connect-client', Date.now());
+        socket.on('enterroom', function(user) {
+          // $('#listusers').append(user)
+          $('#mensagens').append('O usuário ' + user+ ' entrou na sala.')
+        })
+        socket.on('message', function(msg){
+          addMSG(msg)
+        });
+        socket.on('usersListUpdate', function(usersList){
+          updateUsersList(usersList);
+        })
+      });
+    })
+  </script>
+</body>
+</html>

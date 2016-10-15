@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Socket.io - Events</title>
+</head>
+<body>
+  <h1>socket.io - Events</h1>
+  <p id="console"></p>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io.connect('http://localhost:8080');
+    const html = document.getElementById('console')
+
+    socket.on('connect', function(){
+      console.log('connectou')
+      html.innerHTML += 'connectou <br />'
+      socket.emit('connect-client', Date.now());
+    });
+
+    socket.on('hello', function(data){
+      html.innerHTML += data + '<br />'
+    })
+
+  </script>
+</body>
+</html>
