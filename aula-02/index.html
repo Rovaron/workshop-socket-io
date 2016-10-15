@@ -67,7 +67,7 @@
         socket.emit('connect-client', Date.now());
         socket.on('enterroom', function(user) {
           // $('#listusers').append(user)
-          $('#mensagens').append('O usuário ' + user+ ' entrou na sala.')
+          $('#mensagens').append('O usuário ' + user+ ' entrou na sala.<br>')
         })
         socket.on('message', function(msg){
           addMSG(msg)
@@ -75,7 +75,11 @@
         socket.on('usersListUpdate', function(usersList){
           updateUsersList(usersList);
         })
+        socket.on('LeaveRoom', function(user){
+          $('#mensagens').append('O usuário '+user+' deixou a sala.<br>');
+        })
       });
+  
     })
   </script>
 </body>

@@ -16,7 +16,9 @@ io.on('connection', (socket) => {
   console.log('conexão com o Socket.io')
 
   socket.on('disconnect', () => {
-    console.log('disconnect no socket')
+    usersList.splice(usersList.indexOf(socket.user),1)
+    io.sockets.emit('usersListUpdate', usersList)
+    socket.broadcast.emit('LeaveRoom', socket.user)
   })
 
   socket.on('adduser', (user) => {
