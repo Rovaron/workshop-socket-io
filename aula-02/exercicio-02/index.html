@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Socket.io - Events</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+</head>
+<body>
+  <h1>socket.io - Events</h1>
+  <h2>Sala <span id="myroom"></span></h2>
+  
+  <p id="roomsList"></p>
+  <input type="text" id="room">
+  <button id="createroom">CRiar sala</button>
+
+  <hr>
+
+  <input type="text" id="nameuser">
+  <button id="enterchat">ENTRAR</button>
+  <button id="leavechat">SAIR</button>
+  <p id="console"></p>
+  <div id="listusers"></div>
+  <input type="text" id="message"> 
+  <button id="sendmsg">ENVIAR</button>
+
+  <hr>
+
+
+  <p id="mensagens">
+  </p>
+  <br/><br/><br/>
+  <h5 id="usuarios"> </h5>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(document).ready(function() {
+
+      const socket = io.connect('http://localhost:8080');
+      const html = document.getElementById('console')
+      const message = document.getElementById('message')
+      const send = document.getElementById('sendmsg')
+      const mensagens = document.getElementById('mensagens')
+      let nick = ''
+
+      $('#enterchat').click(function() {
+        nick = $('#nameuser').val()
+        socket.emit('adduser', nick)
+        $('#mensagens').append("Você acabou de entrar no Chat da UOL<br />")
+      });
+
+      $('#leavechat').click(function() {
+        socket.emit('leavechat', nick)
+      });
+
+      $('#createroom').click(function() {
+        socket.emit('createroom', $('#room').val())
+      });
+
+      send.addEventListener('click', function() {
+        let msg = message.value
+        console.log('msg:', msg) 
+        sendMSG(msg);
+        $('#mensagens').append(msg + "<br />")
+      });
+
+      function addMSG (msg) {
+        $('#mensagens').append(msg + "<br />")
+      }
+
+      function sendMSG (msg) {
+        socket.emit('message', msg);
+      }
+
+      socket.on('usuarios', function(user){
+        console.log('users', user)
+        $('#usuarios').append(user + "<br />");
+      })
+
+      socket.on('updateRoomList', function(rooms) {
+        console.log('updateRoomList', JSON.stringify(rooms), rooms)
+        $('#roomsList').text(JSON.stringify(rooms))
+        var list = ''
+        $.each(rooms, function(i, el) {
+          console.log(el)
+          list +=  '<a class="room-link" hef="#">'+ el + '</a><br>';
+        })
+        $('#roomsList').html(list)
+      })
+
+      socket.on('createdroom', function(room) {
+        $('#myroom').text(JSON.stringify(room))
+      })
+      socket.on('connect', function(){
+        console.log('connectou')
+        // const nick = prompt('Qual seu nick?')
+
+
+        html.innerHTML += 'connectou \r\n'
+        socket.emit('connect-client', Date.now());
+        socket.on('enterroom', function(user) {
+          // $('#listusers').append(user)
+          $('#mensagens').append('O usuário ' + user+ ' entrou na sala.')
+        })
+        socket.on('message', function(msg){
+          addMSG(msg)
+        });
+      });
+    })
+  </script>
+</body>
+</html>
