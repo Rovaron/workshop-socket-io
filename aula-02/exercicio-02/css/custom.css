@@ -1,0 +1,23 @@
+.avatar-card.mdl-card{
+    background: linear-gradient(
+        transparent,
+        rgba(63,81,181,0.10), 
+        rgba(63,81,181,0.70)
+    ), 
+    url("../img/avatar-background.jpg");
+    background-size: cover;
+    width: 100%;
+}
+
+.avatar-card > .avatar-letter{
+    margin: auto;
+    background-color: rgb(255,64,129);
+    padding: 30px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+}
+
+.no-border{
+    border: none;
+}

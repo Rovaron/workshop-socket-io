@@ -1,6 +1,6 @@
 const http = require('http')
 const fs = require('fs')
-const index = fs.readFileSync('05-users.html');
+const index = fs.readFileSync('index2.html');
 
 const app = http.createServer((req, res)  => {
   res.writeHead(200, {'Content-Type': 'text/html'});
