@@ -7,12 +7,13 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <link rel="stylesheet" href="css/custom.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 </head>
 
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-		<header class="mdl-layout__header">
+		<header class="mdl-layout__header main-header">
 			<div class="mdl-layout__header-row">
 				<span class="mdl-layout-title">Workshop | Socket.io</span>
 				<div class="mdl-layout-spacer"></div>
@@ -28,17 +29,12 @@
 			</div>
 		</header>
 		<div class="mdl-layout__drawer no-border">
-            <div class="avatar-card mdl-card">
-                <div class="avatar-letter">
-                    R
-                </div>
-				<div class="avatar-card--actions">
-					<span id="user-name">Rovaron</span>
-					<button class="mdl-button mdl-js-button mdl-button--icon">
-						<i class="material-icons">mode_edit</i>
-					</button>
-				</div>
-            </div>
+			<header class="mdl-layout__header side-header">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Rovaron</span>
+			</div>
+		</header>
+            
 			<span class="mdl-layout-title">Salas</span>
 			<nav class="mdl-navigation">
 				<a class="mdl-navigation__link" href="">Link</a>
@@ -47,9 +43,12 @@
 		<main class="mdl-layout__content">
 			<div class="page-content">
 				<!-- Your content goes here -->
-				TESTE
+				teste
 			</div>
+			
 		</main>
+		<footer class="mdl-mini-footer chat-pane">
+		</footer>
 	</div>
 </body>
 

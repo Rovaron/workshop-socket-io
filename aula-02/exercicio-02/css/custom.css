@@ -5,7 +5,7 @@ HOPE SOMEONE TRANSLATE THIS TO GIVE IT READABILITY
 AND USE SOME GOOD PATTERN
 */
 body{
-    background: linear-gradient(to top, #348F50 , #56B4D3);
+    background: linear-gradient(to top, #486674 , #bed5e0);
 }
 
 
@@ -31,13 +31,36 @@ body{
     margin-left: 383px;
 }
 
+.mdl-layout__content {
+    background-image: url("../img/webschool-pattern.png");
+    background-size: 10%;
+}
+
 .mdl-layout--fixed-drawer.is-upgraded:not(.is-small-screen) > .mdl-layout__drawer {
     width: 383px;
+}
+
+.mdl-layout__drawer{
+    background-color: #343b80;
+    color: #fff;
+}
+
+.mdl-layout__header .mdl-layout__drawer-button {
+    color: #000;
 }
 
 .mdl-layout--fixed-drawer.is-upgraded:not(.is-small-screen)>.mdl-layout__header{
     margin-left: 383px;
     width: calc(100% - 383px);
+}
+
+.side-header{
+    background-color: #343b80;
+}
+
+.main-header {
+    background-color: #fbfbfb;
+    color: #000;
 }
 
 
@@ -91,3 +114,9 @@ body{
 .no-border{
     border: none;
 }
+
+.chat-pane{
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
